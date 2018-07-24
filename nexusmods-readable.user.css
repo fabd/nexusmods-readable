@@ -39,7 +39,7 @@
 #head .wrap { padding-bottom:0px; }
 
   /* add a little depth */
-nav#menu { box-shadow:0 4px 5px rgba(0,0,0,.2);; }
+nav#menu { box-shadow:0 4px 5px rgba(0,0,0,.2); }
 
   /* buttons */
 .modpage .btn { background-color:btnColor !important; }
