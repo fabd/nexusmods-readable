@@ -1,0 +1,429 @@
+/* ==UserStyle==
+@name         Make NexusMods Readable Again
+@description  Improves readability of the mod pages, more compact site header.
+@namespace    github.com/fabd/nexusmods-readable
+@version      1.0.0
+@author       fabd (https://github.com/fabd)
+@homepageURL  https://github.com/fabd/nexusmods-readable
+@license      MIT ("DO WHAT YOU WANT WITH IT")
+@preprocessor stylus
+
+@var          color    btnColor    "Button color"      #558844
+@var          select   btnShape    "Button style"      ["yay:Rounded (mod)", "nay:Square (original)"]
+@var          select   showDesc    "Mod Description"   ["yay:Hidden (mod)", "nay:Visible (original)"]
+@var          select   dontCenter  "Centered text in mod description" ["yay:Align left (mod)", "nay:Centered (original)"]
+
+==/UserStyle== */
+
+@-moz-document domain("nexusmods.com") {
+
+/* ====================================================================================== */
+
+/* GENERAL / SITE WIDE */
+
+/* ====================================================================================== */
+
+:root {
+  --modpage-bg: #202122;
+  --text-bright: #f1f2f3;
+}
+
+  /* "we're hiring" */
+.hiring-logo { display:none; }
+.headlogo { margin:0; }
+
+  /* darker background */
+.static .wrap, .static .wrap:first-of-type { background:#181818; }
+
+  /* a lil more compact */
+#head .wrap { padding-bottom:0px; }
+
+  /* add a little depth */
+nav#menu { box-shadow:0 4px 5px rgba(0,0,0,.2);; }
+
+  /* buttons */
+.modpage .btn { background-color:btnColor !important; }
+
+a.btn, .btn { padding: 7px; }
+a.btn, .btn, span.alert, .locked, .sticky, .post-category { text-shadow:none !important; }
+
+body.scheme-theme-DeepBlue .btn-active,
+body.scheme-theme-DeepBlue .btn-active .icon { fill:#422 }
+
+  /* active buttons */
+body.scheme-theme-ReskinBlue .btn-active, body.scheme-theme-ReskinBlue #graph-widget-container .active {
+	background-color:#fff !important;	color: #444 !important;
+  border:none !important;
+}
+body.scheme-theme-ReskinBlue .btn-active .icon { fill: #444; }
+
+/* -------------------- */
+/* TOP NAV              */
+/* -------------------- */
+
+.topnav ul.global li a { color:var(--text-bright); }
+nav#menu .wrap ul li > a { color:#c1c2c3; }
+
+nav#menu .wrap { background: #2b2c2d; }
+nav#menu .wrap ul li > a {
+	font-size: 12px; font-family: Arial; color: #ccc;
+	border-right:0px solid #000;
+	background-color: #2b2c2d;
+}
+
+@media (max-width:1280px) {
+  /* compact some to fit items */
+  #install-nmm { display:none; }
+  nav#menu .wrap ul li a { padding:18px 10px; }
+  
+  #nav-search { padding-right:10px; }  
+  form.search input { width:100px; }
+  #nav-search form.search input, #nav-search form.search select#searchtype {
+    height:34px; margin:5px 0; 
+  }
+}
+
+
+/* ====================================================================================== */
+
+/* MOD PAGE */
+
+/* ====================================================================================== */
+
+/* unified background */
+.modpage .col-1-1, .modpage .col-1-1.info-details, ul.modtabs, #follow, #sitemap {
+  background:var(--modpage-bg);
+}
+
+
+/* -------------------- */
+/* FEATURE (mod banner) */
+/* -------------------- */
+.modpage > .wrap { background:none; }
+
+#featured #pagetitle { position:inherit; padding:13px 20px 20px; }
+
+  /* bread crumb (why is the mod title in the bread crumb and repeated just below?) */
+#featured #breadcrumb li:last-of-type { display:none; }
+
+  /* mod title */
+#featured h1 { color:var(--text-bright); margin:8px 0 12px; }
+
+.modpage .col-1-1 { padding:0 0 5em; }
+.modpage .col-1-1.info-details { padding:5px 0 1em; }
+
+  /* top banner.. tried to make it work but most of the time it doesn't look good, and
+     the banner image is often repeated just below in the image gallery. So instead we're
+     using the site's background. */
+#featured #feature, #featured #nofeature { height:auto; background:rgba(0,0,0,0.2) !important; }
+#featured #feature::before,
+#featured #nofeature::before { display:none; }
+
+
+/* -------------------- */
+/* TAGS                 */
+/* -------------------- */
+
+.modpage .info-details { padding-bottom:2em; }
+
+.modpage .info-details h3 { color:var(--text-bright); }
+
+  /* restyle tags as links rather than buttons
+     - buttons are visually overpowering, and sometimes there are many
+     - button style also lacks contrast and hierarchy with the main actions (vote,track, etc)
+  */
+ul.tags li a.btn, ul.tags li a.btn:visited {
+	color:#57a5cc; background:none !important;
+}
+ul.tags li a.btn:hover { text-decoration:underline; color:#ccc; }
+
+  /* remove "Tags for this mod" label (tags are already made obvious with the icons) */
+.modpage .sideitems.side-tags h2 { display:none; }
+.modpage .sideitems.side-tags .icon { fill:#aaa; }
+
+
+/* -------------------- */
+/* IMAGE VIEWER         */
+/* -------------------- */
+
+  /* overpowering white border makes the thumbs harder to see, also why rounded? */
+.lg-outer .lg-thumb-item { border:1px solid #303132; border-radius:0; }
+
+
+/* -------------------- */
+/* MOD TABS             */
+/* -------------------- */
+
+  /* inset within darker container / main body */
+.modpage .tabs { padding:0 10px; }
+
+
+@media (min-width:1280px) {
+  /* align tabs to the .extra_padding content below */
+  #mod-page-tab-description { margin-left:130px; }
+}
+@media (max-width:1279px) {
+  #mod-page-tab-description { margin-left:0px; }
+  .extra_padding { padding:40px 20px !important; }
+  ul.modtabs li a { font-size:10px;	padding:15px 10px; }
+}
+
+  /* mod tabs */
+ul.modtabs li a { font-size:1em; color:#ccc; border:0; background:#151617; height:auto; }
+ul.modtabs li a, ul.modtabs li a.selected { border-right:1px solid var(--modpage-bg); }
+
+span.alert { font-size:1em; padding:0; top:0; }
+
+  /* active tab */
+body.modpage section.modpage ul.modtabs li a.selected {
+  box-shadow:none; color:#fff; outline:none;
+}
+
+  /* counters in the tabs */
+ul.modtabs li a .alert { background-color:transparent; }
+
+  /* light gray background is awful and lacks contrast */
+ul.modtabs li a.selected, .tabcontent {  background:#2b2c2d; }
+
+  /* not sure what the non-default letter-spacing achieves */
+.tabcontent {	letter-spacing:0; }
+
+  /* very confusing "meta" header, hide it since most of the info is available elsewhere */
+if showDesc == yay {
+  #section.modpage .tab-description { display:none !important; }
+}
+
+
+/* ------------------- */
+/* GALLERY & FILE INFO */
+/* ------------------- */
+
+  /* image gallery */
+#sidebargallery { background:none; }
+
+  /* mod thumbs */
+ul.thumbgallery li.thumb { border:0px solid #444; }
+
+  /* mod gallery & file info side-by-side */
+@media (min-width: 1280px) {
+  #sidebargallery, .collection-tile { width: 60%; }
+  #fileinfo { border-bottom: none; }
+  .modpage .info-details #fileinfo {
+    width: 40%;
+    position: absolute;
+    padding: 15px 15px 0 15px;
+    right: 0;
+    top: 0;
+  }
+  .modpage .info-details #fileinfo .sideitem {
+    width: 50%;
+    margin-bottom: 0;
+  }
+  .modpage .info-details #fileinfo .sideitem:nth-child(1),
+  .modpage .info-details #fileinfo .sideitem:nth-child(2) {
+    margin-bottom: 20px;
+  }
+}
+
+  /* "virus scan" */
+#fileinfo > div:last-child { display: none; }
+
+.modpage .sideitems { border-bottom:0; }
+
+
+/* ====================================================================================== */
+/* MOD DESCRIPTION FORMATTING */
+/* ====================================================================================== */
+
+  /* frame images? */
+/*.mod_description_container img { border:2px solid #000; }*/
+
+  /* improve readbility by left-aligning the (already very messy) mod descriptions */
+if dontCenter == yay {
+  #section.modpage .mod_description_container div[align="center"] { text-align:left !important; }
+}
+
+  /* hide the bulky Skyrim G.E.M.S. picture */
+a[href*="skyrimgems"] { display: none; }
+
+
+/* ====================================================================================== */
+/* FILES TAB */
+/* ====================================================================================== */
+
+  /* header separation/contrsat */
+#mod_files dl.accordion  dt { background:#151617; }
+
+  /* contrast */
+#mod_files .titlestat { color:#808182; }
+#mod_files .statitem .stat { font-size:13px }
+
+  /* emphasize */
+#mod_files .stat-filesize .stat { font-weight:bold; }
+
+  /* hide expand/collapse cruft, descriptions always visible */
+#mod_files dl.accordion .acc-status { display:none; }
+#mod_files .accordionitems > .accordion > dd { display: block !important;  margin:0 0 1em; }
+
+  /* unnecessary spacing (since the text and buttons are already visually separated) */
+#mod_files dl.accordion .files-description { margin:0 0 0.3em; }
+
+  /* clean up the page and the excessive repetition of the download buttons
+     (user quickly learns what the MANUAL & NMM icons means) */
+#mod_files .accordion-downloads a svg { margin:0; }
+#mod_files .accordion-downloads a span { display:none; }
+
+  /* use a different color for NMM */
+/*#mod_files .accordion-downloads li:first-child a { background:#cb700b !important; }*/
+
+
+/* ====================================================================================== */
+/* IMAGES TAB */
+/* ====================================================================================== */
+
+  /* spacing */
+ul.tiles > li { margin:0 0 1em 0; }
+
+  /* darker image background */
+a.mod-image { background:#101112; }
+
+  /* gradient darkens everything, and the text legibility here is secondary to the image */
+ul.tiles li.image-tile .tile-desc { background:none; }
+
+  /* "report image" button causes excessive repetition, could have been in the :hover state */
+ul.tiles li.image-tile .validate_image { display:none; }
+
+
+/* ====================================================================================== */
+/* POSTS TAB */
+/* ====================================================================================== */
+
+  /* limit line length */
+#comment-container { max-width:1000px; margin:0 auto; }
+
+  /* not sure why the extra margin, but it doubles up on our "limit line length" */
+#comment-container h2,
+#comment-container .pagination { margin:0; }
+#comment-container .forum-nav { right:0; }
+#comment-container > ol > li { width:auto; }
+
+  /* spacing */
+.comments > ol > li ol > li {
+	margin:0 15px 5px 0;
+	background:none; /* #454545;*/
+	border: 1px solid #000;
+}
+
+  /* replies (2nd level) */
+.comments > ol > li ol { margin:0 0 0 15px; border-left:7px solid #181818; }
+.comments > ol > li ol > li .comment-head { background: #333; }
+
+  /* lighten up the "boxing" */
+#comment-container .comment-sticky { border-left: 2px solid #dc3d3d !important; }
+#comment-container .comment { border:0; }
+
+  /* comment author */
+#comment-container .comment-author { box-sizing:border-box; border:1px solid #6ab039; }
+
+  /* text */
+.comments .comment-content { color: #eee; }
+
+  /* why is "report" given the same emphasis as the action used 99% of the time? */
+  /* (for a mod author, the "Manage" button is restyled instead, which is fine)  */
+#comment-container .comment-actions li:first-child .btn {
+  background:none !important; margin-right:1em;
+}
+
+
+/* ====================================================================================== */
+/* LOGS TAB */
+/* ====================================================================================== */
+
+  /* header separation/contrsat */
+.tab-actionlog dl.accordion  dt { background:#101112; }
+
+  /* the expand/collapse is arguably useful here, but the first section is not opened by
+     default on page load, so off with it */
+.tab-actionlog dl.accordion .acc-status { display:none; }
+.tab-actionlog > .tabbed-section > .accordionitems > .accordion > dd {
+  display: block !important;
+  margin:0 0 1em;
+}
+
+
+/* ====================================================================================== */
+/* MOD LISTINGS */
+/* ====================================================================================== */
+
+#mod-list li.mod-tile .mod-tile-left  { background: #101112; }
+#mod-list li.mod-tile .mod-tile-right { background:none; }
+
+#mod-list ul.tiles li .fadeoff { display:none; }
+
+
+/* ====================================================================================== */
+/* FOOTER */
+/* ====================================================================================== */
+
+  /* foot fetish? */
+footer footer#foot { display:none; }
+
+  /* "Follow us" followed by "Like us", "Follow us", "Join" etc. */ 
+#follow h3 { display:none; }
+
+  /* non-pure gray, merge social sites with the footer visually */
+
+
+/* ====================================================================================== */
+/* This "ROUNDIFIED" section by Gribbleshnibit8:                                          */
+/*  https://userstyles.org/styles/150351/nexusmods-redesign-redesigned                    */
+/* ====================================================================================== */
+
+if btnShape == yay {
+
+  /* Full round */
+  .btn, .info, ul.search-terms li:last-of-type, .searchfield,
+  .select2-container--default.select2-container--focus .select2-selection--multiple { border-radius: 5px; }
+
+  /* Bottom round */
+  ul.tiles li.article-tile .single-image a.post-category { border-radius: 0 0 5px 5px; }
+
+  /* Top round */
+  .btn-more>a.btn { border-radius: 5px 5px 0 0; }
+
+  /* User Nav */
+  #usernav > ul > li.avatar > a        { border-radius: 5px 0 0 5px; }
+  #usernav > ul > li.user-messages > a { border-radius: 0 5px 5px 0; }
+
+  /* Search bar text box and button */
+  #nav-search > form > input.btn { border-radius: 0 5px 5px 0; }
+  #nav-search > form > input.searchfield { border-radius: 5px 0 0 5px; }
+
+  /* Pagination buttons */
+  div.pagination > ul > li:last-child > a  { border-radius: 0 5px 5px 0; }
+  div.pagination > ul > li:first-child > a { border-radius: 5px 0 0 5px; }
+  div.pagination > ul > li:only-child > a  { border-radius: 5px; }
+
+  /* selection containers on search pages and various locations image crop/edit buttons     */
+  .select2-container--default .select2-selection--single,
+  .select2-container--default .select2-selection--multiple .select2-selection__choice,
+  .edit, .crop, .set-primary, .is-primary, .delete, .acc-status,
+  .view-label,
+  li.tag {
+      border-radius: 5px;
+  }
+
+  /* mod comments sticky comment badge */
+  .sticky, .locked { border-radius: 5px; }
+
+  /* Checkbox */
+  .choice-check { border-radius: 2px; }
+
+  /* mod overview plus button expand menu */
+  .btnexpand > li > ul > li:first-child { border-radius: 5px 0 0 0; }
+  .btnexpand > li > ul > li:last-child,
+  .btnexpand > li > ul > li:nth-last-child(2) { border-radius: 0 0 5px 5px; }
+
+  }
+
+}
