@@ -14,18 +14,22 @@ Tested on Desktop, Firefox, best for 1000px wide and up.
 
 ## Purpose
 
-The main focus is *readability* of the mod pages.
+This is an attempt at improving the hit and miss visual hierarchy in the 2017 redesign of NexusMods. The redesign feels cluttered and I find it slower to scan pages and figure out what is what.
+
+Note: there are **OPTIONS**! After installing, click the cog wheel in the Stylus dropdown.
 
 In general:
 
 - Site-wide compact header / top navigation
 - Slightly darker theme, so images and text pop better
-
+- **Option** to change the main button color
+- **Option** to change the button style between rounded / square
 
 Mod pages:
 
 - DESCRIPTION tab:
-  - option to disable the centered content (easier to read)
+  - **Option** to hide the confusing "about this mod" section in the mod description
+  - **Option** to disable the centered content (easier to read)
   - limit the line length on wide desktop (easier to read)
 - FILES tab:
   * auto-expand all the files, so "Misc" file descriptions can be seen
