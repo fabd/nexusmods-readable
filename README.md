@@ -28,7 +28,7 @@ In general:
 Mod pages:
 
 - DESCRIPTION tab:
-  - **Option** to hide the confusing "about this mod" section in the mod description
+  - **Option** to reduce or hide the confusing "About this mod" section
   - **Option** to disable the centered content (easier to read)
   - limit the line length on wide desktop (easier to read)
 - FILES tab:
