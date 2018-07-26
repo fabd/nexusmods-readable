@@ -36,7 +36,7 @@
 .static .wrap, .static .wrap:first-of-type { background:#181818; }
 
   /* a lil more compact */
-#head .wrap { padding-bottom:0px; }
+#head .wrap { padding:12px 10px 0; background:var(--modpage-bg); }
 
   /* add a little depth */
 nav#menu { box-shadow:0 4px 5px rgba(0,0,0,.2); }
@@ -76,7 +76,7 @@ nav#menu .wrap ul li > a {
   #install-nmm { display:none; }
   nav#menu .wrap ul li a { padding:18px 10px; }
   
-  #nav-search { padding-right:10px; }  
+  #nav-search { padding-right:10px; flex:0; margin:3px 0 0; }
   form.search input { width:100px; }
   #nav-search form.search input, #nav-search form.search select#searchtype {
     height:34px; margin:5px 0; 
