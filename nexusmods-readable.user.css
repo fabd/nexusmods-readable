@@ -2,7 +2,7 @@
 @name         Make NexusMods Readable Again
 @description  Improves readability of the mod pages, more compact site header.
 @namespace    github.com/fabd/nexusmods-readable
-@version      1.0.1
+@version      1.0.2
 @author       fabd (https://github.com/fabd)
 @homepageURL  https://github.com/fabd/nexusmods-readable
 @license      MIT ("DO WHAT YOU WANT WITH IT")
@@ -10,7 +10,7 @@
 
 @var          color    btnColor    "Button color"      #558844
 @var          select   btnShape    "Button style"      ["yay:Rounded (mod)", "nay:Square (original)"]
-@var          select   showDesc    "Mod Description"   ["yay:Hidden (mod)", "nay:Visible (original)"]
+@var          select   showDesc    "About this mod"    ["min:Reduced (mod)", "hide:Hidden (mod)", "full:Full (original)"]
 @var          select   dontCenter  "Centered text in mod description" ["yay:Align left (mod)", "nay:Centered (original)"]
 
 ==/UserStyle== */
@@ -31,9 +31,6 @@
   /* "we're hiring" */
 .hiring-logo { display:none; }
 .headlogo { margin:0; }
-
-  /* darker background */
-.static .wrap, .static .wrap:first-of-type { background:#181818; }
 
   /* main background colors */
 #head .wrap, nav#menu .wrap { background:#2b2c2d; }
@@ -56,10 +53,19 @@ body.scheme-theme-DeepBlue .btn-active .icon { fill:#422 }
 
   /* active buttons */
 body.scheme-theme-ReskinBlue .btn-active, body.scheme-theme-ReskinBlue #graph-widget-container .active {
-	background-color:#fff !important;	color: #444 !important;
+  background-color:#fff !important; color: #444 !important;
   border:none !important;
 }
 body.scheme-theme-ReskinBlue .btn-active .icon { fill: #444; }
+
+  /* accordions */
+.accordion dt { background:#373839; }
+.accordion dt:hover { background:#414243; }
+.accordion dt.accopen { background:#101112; }
+
+  /* remove the button, keep the icon */
+#section.modpage .acc-status { background:none; }
+
 
 /* -------------------- */
 /* TOP NAV              */
@@ -68,9 +74,8 @@ body.scheme-theme-ReskinBlue .btn-active .icon { fill: #444; }
 .topnav ul.global li a { color:var(--text-bright); }
 nav#menu .wrap ul li > a { color:#c1c2c3; }
 
-nav#menu .wrap ul li > a {
-	font-size: 12px; font-family: Arial; color: #ccc;	border-right:0px solid #000;
-}
+nav#menu .wrap ul li > a { font-size: 12px; color:#c1c2c3;  border-right:0; }
+nav#menu .wrap ul li > a:hover { color:#444; }
 
 @media (max-width:1280px) {
   /* compact some to fit items */
@@ -84,6 +89,33 @@ nav#menu .wrap ul li > a {
   }
 }
 
+  /* disable transitions */
+nav#menu .wrap ul li ul li a { transition:none; -moz-transition:none; -webkit-transition:none; }
+
+  /* non pure grays */
+.subnav { background: #e8e9ea; }
+  
+  /* non pure gray, darker for separation */
+.subnavlabel { color:#515253; margin-bottom:5px; }
+  
+/*
+nav#menu .wrap .subnav > ul { padding:10px 0; }
+nav#menu .wrap ul li ul li a { margin:0; padding:5px 15px; }
+nav#menu .wrap ul li ul li a:hover { background:#f1f2f3; color:#414243 !important; }
+*/
+
+
+/* -------------------- */
+/* MAIN LAYOUT          */
+/* -------------------- */
+
+  /* outer wrapper between header and footer, merge visually into the footer */
+.static .wrap, .static .wrap:first-of-type,
+.modpage .col-1-1, .modpage .col-1-1.info-details, ul.modtabs,
+#follow, #sitemap {
+  background:var(--modpage-bg);
+}
+
 
 /* ====================================================================================== */
 
@@ -91,10 +123,6 @@ nav#menu .wrap ul li > a {
 
 /* ====================================================================================== */
 
-/* unified background */
-.modpage .col-1-1, .modpage .col-1-1.info-details, ul.modtabs, #follow, #sitemap {
-  background:var(--modpage-bg);
-}
 
 
 /* -------------------- */
@@ -134,7 +162,7 @@ nav#menu .wrap ul li > a {
      - button style also lacks contrast and hierarchy with the main actions (vote,track, etc)
   */
 ul.tags li a.btn, ul.tags li a.btn:visited {
-	color:#57a5cc; background:none !important;
+  color:#57a5cc; background:none !important;
 }
 ul.tags li a.btn:hover { text-decoration:underline; color:#ccc; }
 
@@ -166,7 +194,7 @@ ul.tags li a.btn:hover { text-decoration:underline; color:#ccc; }
 @media (max-width:1279px) {
   #mod-page-tab-description { margin-left:0px; }
   .extra_padding { padding:40px 20px !important; }
-  ul.modtabs li a { font-size:10px;	padding:15px 10px; }
+  ul.modtabs li a { font-size:10px; padding:15px 10px; }
 }
 
   /* mod tabs */
@@ -187,11 +215,19 @@ ul.modtabs li a .alert { background-color:transparent; }
 ul.modtabs li a.selected, .tabcontent {  background:#2b2c2d; }
 
   /* not sure what the non-default letter-spacing achieves */
-.tabcontent {	letter-spacing:0; }
+.tabcontent { letter-spacing:0; }
 
   /* very confusing "meta" header, hide it since most of the info is available elsewhere */
-if showDesc == yay {
-  #section.modpage .tab-description { display:none !important; }
+if showDesc == hide {
+  .modpage .tab-description { display:none !important; }
+}
+if showDesc == min {
+  .modpage .tab-description { border:0; } 
+  .modpage .tab-description h2,
+  .modpage .tab-description .modhistory,
+  .modpage .tab-description > p,
+  .modpage .tab-description ul.actions
+  { display:none; }
 }
 
 
@@ -310,9 +346,9 @@ ul.tiles li.image-tile .validate_image { display:none; }
 
   /* spacing */
 .comments > ol > li ol > li {
-	margin:0 15px 5px 0;
-	background:none; /* #454545;*/
-	border: 1px solid #000;
+  margin:0 15px 5px 0;
+  background:none; /* #454545;*/
+  border: 1px solid #000;
 }
 
   /* replies (2nd level) */
