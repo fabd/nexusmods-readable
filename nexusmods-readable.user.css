@@ -35,8 +35,12 @@
   /* darker background */
 .static .wrap, .static .wrap:first-of-type { background:#181818; }
 
+  /* main background colors */
+#head .wrap, nav#menu .wrap { background:#2b2c2d; }
+nav#menu .wrap ul li > a { background:transparent; }
+
   /* a lil more compact */
-#head .wrap { padding:12px 10px 0; background:var(--modpage-bg); }
+#head .wrap { padding:12px 10px 0; }
 
   /* add a little depth */
 nav#menu { box-shadow:0 4px 5px rgba(0,0,0,.2); }
@@ -64,11 +68,8 @@ body.scheme-theme-ReskinBlue .btn-active .icon { fill: #444; }
 .topnav ul.global li a { color:var(--text-bright); }
 nav#menu .wrap ul li > a { color:#c1c2c3; }
 
-nav#menu .wrap { background: #2b2c2d; }
 nav#menu .wrap ul li > a {
-	font-size: 12px; font-family: Arial; color: #ccc;
-	border-right:0px solid #000;
-	background-color: #2b2c2d;
+	font-size: 12px; font-family: Arial; color: #ccc;	border-right:0px solid #000;
 }
 
 @media (max-width:1280px) {
