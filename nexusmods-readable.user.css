@@ -2,7 +2,7 @@
 @name         Make NexusMods Readable Again
 @description  Improves readability of the mod pages, more compact site header.
 @namespace    github.com/fabd/nexusmods-readable
-@version      1.0.2
+@version      1.0.4
 @author       fabd (https://github.com/fabd)
 @homepageURL  https://github.com/fabd/nexusmods-readable
 @license      MIT ("DO WHAT YOU WANT WITH IT")
@@ -32,10 +32,6 @@
 .hiring-logo { display:none; }
 .headlogo { margin:0; }
 
-  /* main background colors */
-#head .wrap, nav#menu .wrap { background:#2b2c2d; }
-nav#menu .wrap ul li > a { background:transparent; }
-
   /* a lil more compact */
 #head .wrap { padding:12px 10px 0; }
 
@@ -58,13 +54,23 @@ body.scheme-theme-ReskinBlue .btn-active, body.scheme-theme-ReskinBlue #graph-wi
 }
 body.scheme-theme-ReskinBlue .btn-active .icon { fill: #444; }
 
+
+/* -------------------- */
+/* NON PURE GRAY        */
+/* -------------------- */
+  
+  /* main background colors */
+#head .wrap, nav#menu .wrap { background:#2b2c2d; }
+nav#menu .wrap ul li > a { background:transparent; }
+
   /* accordions */
 .accordion dt { background:#373839; }
 .accordion dt:hover { background:#414243; }
 .accordion dt.accopen { background:#101112; }
 
-  /* remove the button, keep the icon */
-#section.modpage .acc-status { background:none; }
+  /* stats */
+.statitem { color:#d1d2d3; }
+
 
 
 /* -------------------- */
@@ -72,7 +78,6 @@ body.scheme-theme-ReskinBlue .btn-active .icon { fill: #444; }
 /* -------------------- */
 
 .topnav ul.global li a { color:var(--text-bright); }
-nav#menu .wrap ul li > a { color:#c1c2c3; }
 
 nav#menu .wrap ul li > a { font-size: 12px; color:#c1c2c3;  border-right:0; }
 nav#menu .wrap ul li > a:hover { color:#444; }
@@ -217,18 +222,25 @@ ul.modtabs li a.selected, .tabcontent {  background:#2b2c2d; }
   /* not sure what the non-default letter-spacing achieves */
 .tabcontent { letter-spacing:0; }
 
+
+  /* ABOUT THIS MOD */
+  
   /* very confusing "meta" header, hide it since most of the info is available elsewhere */
+  /* MUST target body.modpage otherwise it affects .userprofilepage */
 if showDesc == hide {
-  .modpage .tab-description { display:none !important; }
+  body.modpage .tab-description { display:none !important; }
 }
 if showDesc == min {
-  .modpage .tab-description { border:0; } 
-  .modpage .tab-description h2,
-  .modpage .tab-description .modhistory,
-  .modpage .tab-description > p,
-  .modpage .tab-description ul.actions
+  body.modpage .tab-description { border:0; } 
+  body.modpage .tab-description h2,
+  body.modpage .tab-description .modhistory,
+  body.modpage .tab-description > p,
+  body.modpage .tab-description ul.actions
   { display:none; }
 }
+
+  /* "About this mod" accordions: remove the button, keep the icon */
+#section.modpage .acc-status { background:none; }
 
 
 /* ------------------- */
@@ -245,25 +257,28 @@ ul.thumbgallery li.thumb { border:0px solid #444; }
 @media (min-width: 1280px) {
   #sidebargallery, .collection-tile { width: 60%; }
   #fileinfo { border-bottom: none; }
-  .modpage .info-details #fileinfo {
+  
+  body.modpage .info-details { min-height:50px; }
+  
+  body.modpage .info-details #fileinfo {
     width: 40%;
     position: absolute;
     padding: 15px 15px 0 15px;
     right: 0;
     top: 0;
   }
-  .modpage .info-details #fileinfo .sideitem {
+  body.modpage .info-details #fileinfo .sideitem {
     width: 50%;
     margin-bottom: 0;
   }
-  .modpage .info-details #fileinfo .sideitem:nth-child(1),
-  .modpage .info-details #fileinfo .sideitem:nth-child(2) {
+  body.modpage .info-details #fileinfo .sideitem:nth-child(1),
+  body.modpage .info-details #fileinfo .sideitem:nth-child(2) {
     margin-bottom: 20px;
   }
 }
 
   /* "virus scan" */
-#fileinfo > div:last-child { display: none; }
+body.modpage #fileinfo > div:last-child { display: none; }
 
 .modpage .sideitems { border-bottom:0; }
 
@@ -376,7 +391,7 @@ ul.tiles li.image-tile .validate_image { display:none; }
 /* LOGS TAB */
 /* ====================================================================================== */
 
-  /* header separation/contrsat */
+  /* header separation/contrast */
 .tab-actionlog dl.accordion  dt { background:#101112; }
 
   /* the expand/collapse is arguably useful here, but the first section is not opened by
@@ -396,6 +411,15 @@ ul.tiles li.image-tile .validate_image { display:none; }
 #mod-list li.mod-tile .mod-tile-right { background:none; }
 
 #mod-list ul.tiles li .fadeoff { display:none; }
+
+  
+/* ====================================================================================== */
+/* USER PROFILE PAGE */
+/* ====================================================================================== */
+
+body.userprofilepage ul.stats li { margin-right:40px; }
+body.userprofilepage ul.stats .titlestat { font-size:12px; }
+body.userprofilepage ul.stats .stat { font-weight:bold; color:#f1f2f3; }
 
 
 /* ====================================================================================== */
